@@ -1,24 +1,26 @@
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import Home from '../src/pages/Home';
+import About from '../src/pages/About';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Login  from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
-    return (
-        <Router>
-            <div>
-                {/* Navigation Links */}
-                <Link to="/">Home</Link>
-                <Link to="/about">About</Link>
-  
-                {/* Routes */}
-                <Route path="/" exact component={Home} />
-                <Route path="/about" component={About} />
+    return ( 
+        <div className="App" > 
+          <Header></Header>
+            <div class="container text-center p-5 m-2">
+              <Routes>
+                <Route path="/" element={<Home/>} /> 
+                <Route path="/about" element={<About/>} />
+                <Route path="/" element={<Login/>} /> 
+                <Route path="/about" element={<Signup/>} />
+              </Routes>
             </div>
-      </Router>
-    );
+          <Footer></Footer>
+        </div> 
+      );
 }
 
-function Home() {
-    return <h3>Home Page</h3>;
-}
-function About() {
-    return <h3>About Page</h3>;
-}
+export default App;
