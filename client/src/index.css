@@ -8,3 +8,7 @@ input {
 form{
   text-align: center;
 }
+
+Navbar {
+  background-color: bg-secondary;
+}

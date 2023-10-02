@@ -1,7 +1,7 @@
 function About() {
     return (
         <div> 
-            This is the about page
+            Hurry up marek I'm trying to send data to backend
         </div>
     );
 }
