@@ -14,7 +14,7 @@ const typeDefs = gql`
 
   type Appointment {
     _id: ID
-    appointmentDate: String
+    dateTime: String
     userId: ID
     name: String!
     address: String!
@@ -48,6 +48,7 @@ const typeDefs = gql`
   type Mutation {
     addUser(userInput: UserInput!): Auth
     login(loginName: String!, loginPassword: String!): Auth
+    updateUser(userInput: UpdateUserInput!): User
     # addAppointment(
     #   name: String!
     #   address: String!
@@ -68,6 +69,41 @@ const typeDefs = gql`
   }
   input AppointmentFilters {
     name: String
+  }
+  input UserInput {
+    username: String!
+    email: String!
+    password: String!
+  }
+
+  input AppointmentInput {
+    name: String!
+    description: String
+    dateTime: String!
+    address: String
+    phone: String
+    email: String
+    website: String
+  }
+
+  input UpdateAppointmentInput {
+    name: String!
+    description: String
+    dateTime: String!
+    address: String
+    phone: String
+    email: String
+    website: String
+  }
+
+  input DeleteAppointmentInput {
+    _id: ID!
+  }
+
+  input UpdateUserInput {
+    username: String!
+    email: String!
+    password: String!
   }
 `;
 
