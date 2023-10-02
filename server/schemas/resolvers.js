@@ -11,31 +11,21 @@ const hashPassword = async (password) => {
 // constext from apollo-server to get the headers
 
 const resolvers = {
-  MeResult: {
-    __resolveType(obj, contextValue, info) {
-      if (obj.description) {
-        return "Appointment";
-      }
-      if (obj.username) {
-        return "User";
-      }
-    },
-  },
+ 
   Query: {
-    // The currently logged in user.
     me: async (parent, args, context) => {
-      const role = context.user.role;
-      const id = context.user._id;
-      try {
-        if (role === "user") {
-          const userData = await User.findOne({
-            _id: id,
-          }).select("-__v -password");
-
-          return userData;
-        }
-
+      if (!context.user) {
         throw new AuthenticationError("Not logged in");
+      }
+  
+      const id = context.user._id;
+  
+      try {
+        const userData = await User.findOne({
+          _id: id,
+        }).select("-__v -password");
+  
+        return userData;
       } catch (err) {
         console.error(err);
       }

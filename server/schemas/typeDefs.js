@@ -37,10 +37,8 @@ const typeDefs = gql`
     email: String
   }
 
-  union MeResult = User | Appointment
-
   type Query {
-    me: MeResult
+    me: User
     allAppointments(filters: AppointmentFilters): [Appointment]
     getAppointment(_id: ID!): Appointment
   }
