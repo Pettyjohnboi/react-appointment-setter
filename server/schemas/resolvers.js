@@ -69,7 +69,7 @@ const resolvers = {
 
   Mutation: {
     // Login a user account.
-    loginUser: async (parent, { loginName, loginPassword }) => {
+    login: async (parent, { loginName, loginPassword }) => {
       try {
         if (!loginName)
           throw new AuthenticationError("Need a username or email!");
@@ -131,6 +131,22 @@ const resolvers = {
         }
       );
       return updatedUser;
+    },
+    deleteAppointment: async (parent, { appointmentInput }, context) => {
+      const { _id } = appointmentInput;
+  
+      try {
+        // Assuming you have a method to delete an appointment by ID
+        const deletedAppointment = await Appointment.findByIdAndRemove(_id);
+  
+        if (!deletedAppointment) {
+          throw new Error("Appointment not found or already deleted.");
+        }
+  
+        return deletedAppointment;
+      } catch (error) {
+        throw new Error("Error deleting appointment: " + error.message);
+      }
     },
    
   },
