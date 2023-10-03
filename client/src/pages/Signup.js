@@ -5,6 +5,8 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { useNavigate } from "react-router-dom"; 
+
+
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");

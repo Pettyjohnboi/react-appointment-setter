@@ -8,7 +8,7 @@ function NavBar() {
                 <div class="col-8"> 
                     <NavLink to="/">Home</NavLink> 
                     <span> - </span>
-                    <NavLink to="/about" >About</NavLink> 
+                    <NavLink to="/appointments " >About</NavLink> 
                 </div>
                 <div class="col-2"></div>
                 <div class="col-2 text-center"> 
