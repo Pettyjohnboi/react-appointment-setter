@@ -1,7 +1,7 @@
 import decode from "jwt-decode";
 
 // create a new class to instantiate for a user
-class AuthService2 {
+class AuthService {
   // get user data
   getProfile() {
     return decode(this.getToken());
@@ -44,5 +44,4 @@ class AuthService2 {
   }
 }
 
-const AuthService = AuthService2();
-export default AuthService;
+export default new AuthService();
