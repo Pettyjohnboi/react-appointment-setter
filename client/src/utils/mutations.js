@@ -12,6 +12,19 @@ mutation addUser($userInput: UserInput!) {
     }
   }`;
 
+  export const LOGIN_USER = gql`
+  mutation login($loginName: String!, $loginPassword: String!) {
+    login(loginName: $loginName, loginPassword: $loginPassword) {
+      token
+      user {
+        _id
+        username
+        email
+      }
+    }
+  }
+`;
+
   export const UPDATE_USER = gql `
   mutation updateUser($userInput: UpdateUserInput!) {
     updateUser(userInput: $userInput) {
