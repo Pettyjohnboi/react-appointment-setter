@@ -7,23 +7,23 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginName, setLoginName] = useState("");
+    const [loginPassword, setPassword] = useState("");
     const [loginUser] = useMutation(LOGIN_USER);
     const navigate = useNavigate(); 
   
     
-    const handleUserSignup = async (event) => {
+    const handleUserLogin = async (event) => {
       event.preventDefault();
-      const usernameInput = username;
-      const passwordInput = password;
+      const loginNameInput = loginName;
+      const loginPasswordInput = loginPassword;
   
       try {
         const { data } = await loginUser({
           variables: {
             userInput: {
-              username: usernameInput,
-              password: passwordInput,
+              loginName: loginNameInput,
+              loginPassword: loginPasswordInput,
             },
           },
         });
@@ -40,14 +40,14 @@ function Login() {
     return (
       <div className="container mt-5">
         <h2>Sign Up</h2>
-        <Form onSubmit={handleUserSignup}>
+        <Form onSubmit={handleUserLogin}>
           <Form.Group controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              placeholder="Username/Email"
+              value={loginName}
+              onChange={(event) => setLoginName(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="password">
@@ -55,7 +55,7 @@ function Login() {
             <Form.Control
               type="password"
               placeholder="Password"
-              value={password}
+              value={loginPassword}
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
