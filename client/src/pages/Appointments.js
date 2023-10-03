@@ -1,4 +1,4 @@
-function About() {
+function Appointments() {
     return (
         <div> 
             Hurry up marek I'm trying to send data to backend
@@ -6,4 +6,4 @@ function About() {
     );
 }
 
-export default About;
+export default Appointments;
