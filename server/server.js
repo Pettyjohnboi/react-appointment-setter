@@ -13,10 +13,14 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
+const corsOptions = {
+  origin: ['http://localhost:3000', 'https://studio.apollographql.com'],
+  credentials: true,
+};
 
+app.use('/graphql', cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
 
 
 if (process.env.NODE_ENV === 'production') {
