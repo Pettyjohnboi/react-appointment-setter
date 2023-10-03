@@ -1,7 +1,7 @@
 import decode from "jwt-decode";
 
 // create a new class to instantiate for a user
-class AuthService {
+class AuthService2 {
   // get user data
   getProfile() {
     return decode(this.getToken());
@@ -34,7 +34,6 @@ class AuthService {
   login(idToken) {
     // Saves user token to localStorage
     localStorage.setItem("id_token", idToken);
-    window.location.reload();
   }
 
   logout() {
@@ -45,4 +44,5 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const AuthService = AuthService2();
+export default AuthService;
