@@ -1,11 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const { User, Appointment} = require("../models");
-const bcrypt = require('bcrypt');
-const hashPassword = async (password) => {
-  const hashedPassword = await bcrypt.hash(password, 10);
-  return hashedPassword;
-};
+const { hashPassword } = require("../utils/helpers");
+
 
 // resolvers graphQL = ROUTES in RESTful APIs -> randle the queries and mutations
 // constext from apollo-server to get the headers
@@ -60,6 +57,7 @@ const resolvers = {
   Mutation: {
     // Login a user account.
     login: async (parent, { loginName, loginPassword }) => {
+      console.log(loginName);
       try {
         if (!loginName)
           throw new AuthenticationError("Need a username or email!");
