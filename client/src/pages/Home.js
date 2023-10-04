@@ -28,7 +28,6 @@ function Home() {
 
       //add date that switches to date time utc
       try {
-        console.log(userId);
         const { data } = await addAppointment({
             variables: {
                 appointmentInput: {
@@ -37,15 +36,12 @@ function Home() {
                   phone: phoneInput,
                   email: emailInput,
                   description: descriptionInput,
-                  date: dateInput,
+                  dateTime: dateInput,
                   userId: userId
                 },
               },
-        });
-        Auth.login(data.login.token);
-  
-        // Redirect to the home page after successful signup
-        navigate("/"); // Use navigate to redirect
+        }); 
+        //Refresh to add more appointments
         window.location.reload(false);
       } catch (err) {
         console.error(err);
@@ -105,7 +101,7 @@ function Home() {
           <Form.Group controlId="date">
             <Form.Label>Date</Form.Label>
             <Form.Control
-              type="date"
+              type="datetime-local"
               placeholder="Date"
               value={date}
               onChange={(event) => setDate(event.target.value)}
