@@ -1,6 +1,6 @@
 function Home() {
     return (
-        <div class="container">
+        <div class="container ml-auto mr-auto mt-5">
             <div class="row"> 
                 <div class="col">
                 <form>

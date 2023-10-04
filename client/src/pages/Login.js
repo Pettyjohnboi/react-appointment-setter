@@ -29,6 +29,7 @@ function Login() {
   
         // Redirect to the home page after successful signup
         navigate("/"); // Use navigate to redirect
+        window.location.reload(false);
       } catch (err) {
         console.error(err);
         // add signup error message later
@@ -37,8 +38,8 @@ function Login() {
   
     return (
       <div className="container mt-5">
-        <h2>Sign Up</h2>
-        <Form onSubmit={handleUserSignup}>
+        <h2>Login</h2>
+        <Form onSubmit={handleUserLogin}>
           <Form.Group controlId="username">
             <Form.Label>Username</Form.Label>
             <Form.Control
