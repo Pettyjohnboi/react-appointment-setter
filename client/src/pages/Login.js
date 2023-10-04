@@ -13,7 +13,7 @@ function Login() {
     const navigate = useNavigate(); 
   
     
-    const handleUserSignup = async (event) => {
+    const handleUserLogin = async (event) => {
       event.preventDefault();
       const loginNameInput = loginName;
       const loginPasswordInput = loginPassword;
