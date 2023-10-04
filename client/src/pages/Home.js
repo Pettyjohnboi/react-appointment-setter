@@ -11,6 +11,7 @@ function Home() {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [description, setDescription] = useState("");
+    const [date, setDate] = useState("");
     const [addAppointment] = useMutation(ADD_APPOINTMENT);
     const navigate = useNavigate(); 
   
@@ -22,17 +23,21 @@ function Home() {
       const phoneInput = phone;
       const emailInput = email;
       const descriptionInput = description;
-      const userId = Auth.getToken();
-      
+      const dateInput = date;
+      const userId = Auth.getProfile().data._id;
+
+      //add date that switches to date time utc
       try {
+        console.log(userId);
         const { data } = await addAppointment({
             variables: {
-                userInput: {
+                appointmentInput: {
                   name: nameInput,
                   address: addressInput,
                   phone: phoneInput,
                   email: emailInput,
                   description: descriptionInput,
+                  date: dateInput,
                   userId: userId
                 },
               },
@@ -64,37 +69,46 @@ function Home() {
           <Form.Group controlId="address">
             <Form.Label>Address</Form.Label>
             <Form.Control
-              type="text"
+              type="address"
               placeholder="Address"
               value={address}
               onChange={(event) => setAddress(event.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group controlId="phone">
             <Form.Label>Phone</Form.Label>
             <Form.Control
-              type="password"
+              type="tel"
               placeholder="Phone"
               value={phone}
               onChange={(event) => setPhone(event.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
-              type="password"
+              type="email"
               placeholder="Email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="password">
+          <Form.Group controlId="description">
             <Form.Label>Description</Form.Label>
             <Form.Control
-              type="password"
+              type="text"
               placeholder="Description"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="date">
+            <Form.Label>Date</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Date"
+              value={date}
+              onChange={(event) => setDate(event.target.value)}
             />
           </Form.Group>
             <div class="pt-3">
