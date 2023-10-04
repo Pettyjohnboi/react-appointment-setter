@@ -43,7 +43,7 @@ const startApolloServer = async () => {
       sendEmail();
       console.log('testing node cron');
     }
-    cron.schedule('*/15 * * * * *', checkDatabase);
+    cron.schedule('*/15 * * * *', checkDatabase);
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);

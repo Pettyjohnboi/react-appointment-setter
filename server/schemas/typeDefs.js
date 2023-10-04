@@ -37,7 +37,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
-    allAppointments(filters: AppointmentFilters): [Appointment]
+    allAppointments(userId: String!): [Appointment]
     getAppointment(_id: ID!): Appointment
   }
 

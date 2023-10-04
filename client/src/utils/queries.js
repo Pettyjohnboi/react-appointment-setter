@@ -19,8 +19,8 @@ query {
   }`;
 
   export const GET_ALL_APPOINTMENTS = gql`
-  query allAppointments($filters: AppointmentFilters) {
-    allAppointments(filters: $filters) {
+  query allAppointments($userId: String!) {
+    allAppointments(userId: $userId) {
         _id
         dateTime
         userId
@@ -28,10 +28,9 @@ query {
         address
         phone
         email
+    }
   }
-}
 `;
-
 export const GET_APPOINTMENT = gql`
 query getAppointment($_id: ID!) {
     getAppointment(_id: $_id) {
