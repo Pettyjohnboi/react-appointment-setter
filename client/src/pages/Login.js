@@ -7,27 +7,25 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginName, setLoginName] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     const [loginUser] = useMutation(LOGIN_USER);
     const navigate = useNavigate(); 
   
     
     const handleUserSignup = async (event) => {
       event.preventDefault();
-      const usernameInput = username;
-      const passwordInput = password;
+      const loginNameInput = loginName;
+      const loginPasswordInput = loginPassword;
   
       try {
         const { data } = await loginUser({
           variables: {
-            userInput: {
-              username: usernameInput,
-              password: passwordInput,
-            },
+            loginName: loginNameInput,
+            loginPassword: loginPasswordInput,
           },
         });
-        Auth.login(data.loginUser.token);
+        Auth.login(data.login.token);
   
         // Redirect to the home page after successful signup
         navigate("/"); // Use navigate to redirect
@@ -46,8 +44,8 @@ function Login() {
             <Form.Control
               type="text"
               placeholder="Username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
+              value={loginName}
+              onChange={(event) => setLoginName(event.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="password">
@@ -55,8 +53,8 @@ function Login() {
             <Form.Control
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              value={loginPassword}
+              onChange={(event) => setLoginPassword(event.target.value)}
             />
           </Form.Group>
           <Button variant="primary" type="submit">

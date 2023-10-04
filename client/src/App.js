@@ -23,7 +23,7 @@ import NavBar from "./components/NavBar";
 //import Auth from "./utils/auth";
 
 const httpLink = createHttpLink({
-  //this would need to change for live application
+  //uri: "/graphql",
   uri: "http://localhost:3001/graphql",
 });
 
