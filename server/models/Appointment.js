@@ -1,4 +1,5 @@
-const { Schema } = require('mongoose');
+const { Schema, model } = require('mongoose');
+ 
 
 const appointmentSchema = new Schema({
     name: {
@@ -27,12 +28,13 @@ const appointmentSchema = new Schema({
         required: false,
 
     },
-    website: {
-        type:String,
-        required: false,
-    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true,
+    }
 }, {
     timestamps: true,
 });
-
-module.exports = appointmentSchema;
+const Appointment = model('Appointment', appointmentSchema);
+module.exports = Appointment;

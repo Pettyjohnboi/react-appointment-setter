@@ -9,18 +9,17 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
-    savedAppointment: [Appointment]
   }
 
   type Appointment {
     _id: ID
-    dateTime: String
-    userId: ID
+    dateTime: String!
+    userId: ID!
     name: String!
-    address: String!
-    phone: String!
-    email: String!
-    description: String!
+    address: String
+    phone: String
+    email: String
+    description: String
   }
 
 
@@ -79,6 +78,7 @@ const typeDefs = gql`
     address: String
     phone: String
     email: String
+    userId: ID!
   }
 
   input UpdateAppointmentInput {
