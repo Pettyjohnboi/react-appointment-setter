@@ -28,17 +28,11 @@ const resolvers = {
       }
     },
 
-    allAppointments: async (parent, { filters }, context) => {
+    allAppointments: async (parent, { userId }, context) => {
       try {
-        let query = {};
-    
-        if (filters?.name) {
-          query.name = { $regex: filters.name, $options: "i" };
-        }
-    
-        const appointments = await Appointment.find(query)
-        .sort({ dateTime: 1 }) 
-        .exec();
+        const appointments = await Appointment.find({ userId }) // Use an object to specify the query condition
+          .sort({ dateTime: 1 })
+          .exec();
         return appointments;
       } catch (error) {
         throw new Error(`Error fetching appointments: ${error.message}`);
