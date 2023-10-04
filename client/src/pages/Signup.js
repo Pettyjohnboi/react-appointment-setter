@@ -72,9 +72,11 @@ function Signup() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Sign Up
-        </Button>
+        <div class="pt-3">
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </div> 
       </Form>
     </div>
   );

@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 
 function Header() {
     return ( 
-        <div class=""> 
+        <div class="bg-secondary"> 
              <NavBar></NavBar>
         </div> 
     );
