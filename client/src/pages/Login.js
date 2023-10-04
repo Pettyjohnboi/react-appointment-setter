@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
     const [loginName, setLoginName] = useState("");
-    const [loginPassword, setPassword] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     const [loginUser] = useMutation(LOGIN_USER);
     const navigate = useNavigate(); 
   
@@ -21,13 +21,11 @@ function Login() {
       try {
         const { data } = await loginUser({
           variables: {
-            userInput: {
-              loginName: loginNameInput,
-              loginPassword: loginPasswordInput,
-            },
+            loginName: loginNameInput,
+            loginPassword: loginPasswordInput,
           },
         });
-        Auth.login(data.loginUser.token);
+        Auth.login(data.login.token);
   
         // Redirect to the home page after successful signup
         navigate("/"); // Use navigate to redirect
@@ -38,33 +36,31 @@ function Login() {
     };
   
     return (
-      <div class="container p-5">
-        <div className="container mt-5">
-          <h2 class="text-center">Login</h2>
-          <Form onSubmit={handleUserLogin}>
-            <Form.Group controlId="username">
-              <Form.Control
-                type="text"
-                placeholder="Username/Email"
-                value={loginName}
-                onChange={(event) => setLoginName(event.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={loginPassword}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </Form.Group>
-            <div class="pt-3">
-              <Button variant="primary" type="submit">
-                Sign Up
-              </Button>
-            </div>
-          </Form>
-        </div>
+      <div className="container mt-5">
+        <h2>Sign Up</h2>
+        <Form onSubmit={handleUserSignup}>
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              value={loginName}
+              onChange={(event) => setLoginName(event.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="password">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              value={loginPassword}
+              onChange={(event) => setLoginPassword(event.target.value)}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+            Sign Up
+          </Button>
+        </Form>
       </div>
     );
   }
