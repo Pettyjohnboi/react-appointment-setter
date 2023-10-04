@@ -41,6 +41,7 @@ mutation addUser($userInput: UserInput!) {
       phone,
       email,
       description,
+      userId,
     }
   }`;
 
