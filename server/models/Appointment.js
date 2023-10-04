@@ -29,7 +29,7 @@ const appointmentSchema = new Schema({
 
     },
     userId: {
-        type: Schema.Types.ObjectId,
+        type: String,
         ref: 'User', 
         required: true,
     }

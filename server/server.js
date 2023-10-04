@@ -5,6 +5,9 @@ const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 const cors = require("cors");
+const cron = require('node-cron'); 
+const sendEmail = require('./utils/sendEmail');
+
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -36,6 +39,11 @@ const startApolloServer = async () => {
   server.applyMiddleware({ app });
   
   db.once('open', () => {
+    function checkDatabase() {
+      sendEmail();
+      console.log('testing node cron');
+    }
+    cron.schedule('*/15 * * * * *', checkDatabase);
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
       console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);

@@ -14,7 +14,7 @@ const typeDefs = gql`
   type Appointment {
     _id: ID
     dateTime: String!
-    userId: ID!
+    userId: String!
     name: String!
     address: String
     phone: String
@@ -52,9 +52,9 @@ const typeDefs = gql`
     #   email: String!
     #   description: String!
     # ): Appointment
-    addAppointment(appointmentInput: AppointmentInput!): Auth
+    addAppointment(appointmentInput: AppointmentInput!): Appointment
     updateAppointment(appointmentInput: UpdateAppointmentInput!): Appointment
-    deleteAppointment(appointmentInput: DeleteAppointmentInput!): Appointment
+    deleteAppointment(deleteAppointmentInput: DeleteAppointmentInput!): Appointment
   }
 
   input UserInput {
@@ -78,7 +78,7 @@ const typeDefs = gql`
     address: String
     phone: String
     email: String
-    userId: ID!
+    userId: String!
   }
 
   input UpdateAppointmentInput {
