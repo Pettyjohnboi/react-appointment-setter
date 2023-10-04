@@ -27,6 +27,7 @@ const resolvers = {
         console.error(err);
       }
     },
+
     allAppointments: async (parent, { filters }, context) => {
       try {
         let query = {};
@@ -35,13 +36,15 @@ const resolvers = {
           query.name = { $regex: filters.name, $options: "i" };
         }
     
-        const appointments = await Appointment.find(query);
-    
+        const appointments = await Appointment.find(query)
+        .sort({ dateTime: 1 }) 
+        .exec();
         return appointments;
-      } catch (err) {
-        throw new Error("Error fetching appointments: " + err);
+      } catch (error) {
+        throw new Error(`Error fetching appointments: ${error.message}`);
       }
     },
+
     getAppointment: async (parent, args) => {
       const _id = args._id;
       try {
@@ -120,8 +123,18 @@ const resolvers = {
       );
       return updatedUser;
     },
-    deleteAppointment: async (parent, { appointmentInput }, context) => {
-      const { _id } = appointmentInput;
+    addAppointment: async (parent, { appointmentInput }) => {
+      try {
+        const appointment = await Appointment.create(appointmentInput);
+        return appointment ;
+      } catch (error) {
+        throw new Error("Error adding appointment: " + error.message);
+      }
+
+    },
+
+    deleteAppointment: async (parent, { deleteAppointmentInput }, context) => {
+      const { _id } = deleteAppointmentInput;
   
       try {
         // Assuming you have a method to delete an appointment by ID

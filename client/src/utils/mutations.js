@@ -41,6 +41,7 @@ mutation addUser($userInput: UserInput!) {
       phone,
       email,
       description,
+      dateTime,
       userId,
     }
   }`;
@@ -48,11 +49,16 @@ mutation addUser($userInput: UserInput!) {
 export const UPDATE_APPOINTMENT = gql `
   mutation updateAppointment($appointmentInput: UpdateAppointmentInput!){
     updateAppointment(appointmentInput:$appointmentInput) { 
-      appointmentId,
       name,
       address,
       phone,
       email,
       description,
+    }
+  }`;
+  export const Delete_APPOINTMENT = gql `
+  mutation deleteAppointment($deleteAppointmentInput: DeleteAppointmentInput!){
+    deleteAppointment(deleteAppointmentInput:$deleteAppointmentInput) {
+      _id,
     }
   }`;
