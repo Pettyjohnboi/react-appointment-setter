@@ -58,7 +58,7 @@ function Signup() {
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Email address"
+            placeholder="Email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
