@@ -46,7 +46,7 @@ mutation addUser($userInput: UserInput!) {
     }
   }`;
 
-export const UPDATE_APPOINTMENT = gql `
+  export const UPDATE_APPOINTMENT = gql `
   mutation updateAppointment($appointmentInput: UpdateAppointmentInput!){
     updateAppointment(appointmentInput:$appointmentInput) { 
       name,

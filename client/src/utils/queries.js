@@ -28,6 +28,7 @@ query allAppointments($userId: String!) {
       address
       phone
       email
+      description
   }
 }
 `;
@@ -44,6 +45,7 @@ query getAppointment($_id: ID!) {
         address
         phone
         email
+        description
     }
   }
 `;
