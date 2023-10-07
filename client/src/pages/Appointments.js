@@ -76,7 +76,7 @@ function Appointments() {
         }
     };
 
-    const columnsPerRow = 3;
+    const columnsPerRow = 2;
     const appointments = [];
     if(data != undefined){
         const arr = data.allAppointments;
@@ -97,34 +97,36 @@ function Appointments() {
                                 + seconds; 
                        
             appointments.push(
-                <div class="col p-4">
-                    <div key={index} style={{margin: 'auto', width: '70%'}}>
+                <div class="col p-2 m-2 bgWithOpacity" style={{border: '1px solid #000', maxWidth: '33%'}}>
+                    <div key={index} style={{margin: 'auto', width: '85%'}}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <h4 style={{ marginRight: 'auto' }}>Name:</h4>
-                            <h4 style={{ marginLeft: 'auto' }}>{appointment.name}</h4>
+                            <h5 style={{ marginRight: 'auto' }}>Name:</h5>
+                            <h5 style={{ marginLeft: 'auto' }}>{appointment.name}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <h4 style={{ marginRight: 'auto' }}>Address:</h4>
-                            <h4 style={{ marginLeft: 'auto' }}>{appointment.address}</h4>
+                            <h5 style={{ marginRight: 'auto' }}>Address:</h5>
+                            <h5 style={{ marginLeft: 'auto' }}>{appointment.address}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <h4 style={{ marginRight: 'auto' }}>Email:</h4>
-                                <h4 style={{ marginLeft: 'auto' }}>{appointment.email}</h4>
+                                <h5 style={{ marginRight: 'auto' }}>Email:</h5>
+                                <h5 style={{ marginLeft: 'auto' }}>{appointment.email}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <h4 style={{ marginRight: 'auto' }}>Phone:</h4>
-                                <h4 style={{ marginLeft: 'auto' }}>{appointment.phone}</h4>
+                                <h5 style={{ marginRight: 'auto' }}>Phone:</h5>
+                                <h5 style={{ marginLeft: 'auto' }}>{appointment.phone}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <h4 style={{ marginRight: 'auto' }}>Description:</h4>
-                                <h4 style={{ marginLeft: 'auto' }}>{appointment.description}</h4>
+                                <h5 style={{ marginRight: 'auto' }}>Description:</h5>
+                                <h5 style={{ marginLeft: 'auto' }}>{appointment.description}</h5>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <h4 style={{ marginRight: 'auto' }}>Date:</h4>
-                                <h4 style={{ marginLeft: 'auto' }}>{formattedDate}</h4>
+                                <h5 style={{ marginRight: 'auto' }}>Date:</h5>
+                                <h5 style={{ marginLeft: 'auto' }}>{formattedDate}</h5>
                         </div>
-                        <button onClick={() => handleDeleteAppointment(appointment._id)}>Delete</button>
-                        <button onClick={() => handleButtonClick(index)}>Edit</button>
+                        <div style={{ display: 'center', justifyContent: 'space-evenly' }}>
+                            <button onClick={() => handleDeleteAppointment(appointment._id)}>Delete</button>
+                            <button onClick={() => handleButtonClick(index)}>Edit</button>
+                        </div>
                         {(index === setAppt && showDiv) && (
                             <div class="p-1" style={{margin: 'auto', width: '75%'}}>
                             {/* Your content goes here */}
@@ -180,8 +182,8 @@ function Appointments() {
                     </div>
                 </div>
             );
-            if(columnsPerRow % index  == 0){
-                appointments.push(<div class="col"></div>);
+            if(columnsPerRow / index  == 1){
+                appointments.push(<div></div>);
             } 
         });
     }
