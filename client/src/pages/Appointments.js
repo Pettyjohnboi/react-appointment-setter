@@ -45,18 +45,20 @@ function Appointments() {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [description, setDescription] = useState("");
-    const handleUpdateAppointment = async () => {
+    const handleUpdateAppointment = async (appointmentIdInput) => {
 
         try {
             // Assuming updateAppt is a GraphQL mutation
             const { data } = await updateAppt({
                 variables: {
-                    appointmentInput: {
-                        name,
-                        address,
-                        phone,
-                        email,
-                        description,
+                    appointmentId: appointmentIdInput,
+                    updateAppointmentInput: {
+                        name:name,
+                        address:address,
+                        phone:phone,
+                        email:email,
+                        description:description,
+                        dateTime:"2023-12-31T14:30:00Z",
                     },
                 },
             });
@@ -130,7 +132,7 @@ function Appointments() {
                         {(index === setAppt && showDiv) && (
                             <div class="p-1" style={{margin: 'auto', width: '75%'}}>
                             {/* Your content goes here */}
-                                <Form onSubmit={() => handleUpdateAppointment(appointment)}>
+                                <Form onSubmit={() => handleUpdateAppointment(appointment._id)}>
                                     <Form.Group controlId="name">
                                         <Form.Control
                                             type="text"

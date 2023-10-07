@@ -127,6 +127,32 @@ const resolvers = {
 
     },
 
+    updateAppointment: async (parent, { appointmentId, updateAppointmentInput }) => {
+      const id = appointmentId;
+      console.log("this is running");
+    
+      try {
+        console.log(updateAppointmentInput);
+        const updatedAppointment = await Appointment.findOneAndUpdate(
+          { _id: id },
+          {
+            $set: updateAppointmentInput, 
+          },
+          {
+            new: true,
+          }
+        );
+    
+        if (!updatedAppointment) {
+          throw new Error("Appointment not found");
+        }
+    
+        return updatedAppointment;
+      } catch (error) {
+        throw error;
+      }
+    },
+
     deleteAppointment: async (parent, { deleteAppointmentInput }, context) => {
       const { _id } = deleteAppointmentInput;
   
