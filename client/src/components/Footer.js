@@ -1,6 +1,6 @@
 function footer() {
     return (
-        <div class="fixed-bottom p-5">
+        <div class="fixed-bottom p-1 bgWithOpacity">
             <div class="container text-center">
                 footer
             </div>
