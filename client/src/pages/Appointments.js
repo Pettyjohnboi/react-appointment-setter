@@ -8,6 +8,7 @@ import { Form, Button } from "react-bootstrap";
 
 function Appointments() {
 
+    
     const [showDiv, setShowDiv] = useState(false);
     const [setAppt, setApptIndex] = useState(0);
     const [delAppt] = useMutation(Delete_APPOINTMENT);
@@ -20,7 +21,7 @@ function Appointments() {
                 userId: userId,     
             },   
         });
-        
+    
     const handleDeleteAppointment = (appointmentIdInput) => {
         try{ 
             const { data } = delAppt ({
@@ -37,33 +38,31 @@ function Appointments() {
         } catch (err) {
             console.error(err);
         }
-    };
-
+    }
 
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [description, setDescription] = useState("");
-    const handleUpdateAppointment = async (appointmentIdInput) => {
 
-        try {
-            // Assuming updateAppt is a GraphQL mutation
-            const { data } = await updateAppt({
-                variables: {
-                    appointmentId: appointmentIdInput,
-                    updateAppointmentInput: {
-                        name:name,
-                        address:address,
-                        phone:phone,
-                        email:email,
-                        description:description,
-                        dateTime:"2023-12-31T14:30:00Z",
-                    },
+    const handleUpdateAppointment = async () => {
+    try {
+        // Assuming updateAppt is a GraphQL mutation
+        console.log();
+        const { data } = await updateAppt({
+            variables: {
+                appointmentInput: {
+                    name,
+                    address,
+                    phone,
+                    email,
+                    description,
                 },
-            });
-            console.log('Mutation response: ', data);
-            //window.location.reload(false);
+            },
+        });
+        console.log('Mutation response: ', data);
+        window.location.reload(false);
         } catch (err) {
             console.error('Mutation error:', err.message);
         }
@@ -82,6 +81,7 @@ function Appointments() {
     const appointments = [];
     if(data != undefined){
         const arr = data.allAppointments;
+        
         arr.forEach((appointment, index) => {
             var timestamp = Number(appointment.dateTime);
             var date = new Date(timestamp);
@@ -96,8 +96,7 @@ function Appointments() {
                                 + day + ' '
                                 + hours + ':'
                                 + minutes + ':'
-                                + seconds; 
-                       
+                                + seconds;  
             appointments.push(
                 <div class="col p-2 m-2 bgWithOpacity" style={{border: '1px solid #000', maxWidth: '33%'}}>
                     <div key={index} style={{margin: 'auto', width: '85%'}}>
@@ -137,7 +136,7 @@ function Appointments() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Name"
-                                            value={name}
+                                            defaultValue={appointment.name}
                                             onChange={(event) => setName(event.target.value)}
                                         />
                                     </Form.Group>
@@ -145,7 +144,7 @@ function Appointments() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Address"
-                                            value={address}
+                                            defaultValue={appointment.address}
                                             onChange={(event) => setAddress(event.target.value)}
                                         />
                                     </Form.Group>
@@ -153,7 +152,7 @@ function Appointments() {
                                         <Form.Control
                                             type="tel"
                                             placeholder="Phone"
-                                            value={phone}
+                                            defaultValue={appointment.phone}
                                             onChange={(event) => setPhone(event.target.value)}
                                         />
                                     </Form.Group>
@@ -161,7 +160,7 @@ function Appointments() {
                                         <Form.Control
                                             type="email"
                                             placeholder="Email"
-                                            value={email}
+                                            defaultValue={appointment.email}
                                             onChange={(event) => setEmail(event.target.value)}
                                         />
                                     </Form.Group>
@@ -169,7 +168,7 @@ function Appointments() {
                                         <Form.Control
                                             type="text"
                                             placeholder="Description"
-                                            value={description}
+                                            defaultValue={appointment.description}
                                             onChange={(event) => setDescription(event.target.value)}
                                         />
                                     </Form.Group>
