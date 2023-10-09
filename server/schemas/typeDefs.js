@@ -53,7 +53,7 @@ const typeDefs = gql`
     #   description: String!
     # ): Appointment
     addAppointment(appointmentInput: AppointmentInput!): Appointment
-    updateAppointment(appointmentInput: UpdateAppointmentInput!): Appointment
+    updateAppointment(appointmentId: String!, updateAppointmentInput: UpdateAppointmentInput!): Appointment
     deleteAppointment(deleteAppointmentInput: DeleteAppointmentInput!): Appointment
   }
 
