@@ -9,6 +9,5 @@ To do list
   - have a theme???
 
 - display all appointments that a user as made - done
-- make appointments screen more intuitive
-  - allow editing of just one field and not all
-  - make it one form
+- make appointments screen display a form that is filled in with appointment details
+  -can still be editied
