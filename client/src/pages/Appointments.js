@@ -45,28 +45,54 @@ function Appointments() {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [description, setDescription] = useState("");
+    const [dateTime, setDateTime] = useState("");
 
-    const handleUpdateAppointment = async () => {
-    try {
-        // Assuming updateAppt is a GraphQL mutation
-        console.log();
-        const { data } = await updateAppt({
-            variables: {
-                appointmentInput: {
-                    name,
-                    address,
-                    phone,
-                    email,
-                    description,
-                },
-            },
-        });
-        console.log('Mutation response: ', data);
-        window.location.reload(false);
-        } catch (err) {
-            console.error('Mutation error:', err.message);
-        }
-    };
+    const handleUpdateAppointment = async (event, appointment) => {
+        event.preventDefault();
+        let appointmentId = appointment._id;
+        console.log(appointment);
+            if(name == "") {
+                setName (appointment.name);
+                console.log("entered");
+            }
+            if(address == "") setAddress (appointment.address);
+            if(phone == "") setPhone (appointment.phone);
+            if(email == "") setEmail (appointment.email);
+            if(description == "") setDescription(appointment.description);
+            if(dateTime == "" || dateTime == null) 
+            {
+                var timestamp = Number(appointment.dateTime);
+                var date = new Date(timestamp);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1; // Months are zero-based, so adding 1
+                var day = date.getDate();
+                var formattedDate = year + '/'
+                                    + month + '/'
+                                    + day + '/';  
+                setDateTime(formattedDate);
+            }
+            try {
+                console.log(phone);
+                // Assuming updateAppt is a GraphQL mutation
+                const { data } = await updateAppt({
+                    variables: {
+                        appointmentId,
+                        updateAppointmentInput: {
+                            name,
+                            address,
+                            phone,
+                            email,
+                            description,
+                            dateTime,
+                        },
+                    },
+                });
+                console.log('Mutation response: ', data);
+                //window.location.reload(false);
+                } catch (err) {
+                    console.error('Mutation error:', err.message);
+                }
+        };
 
     const handleButtonClick = (index) => {
         setApptIndex(index);
@@ -81,7 +107,6 @@ function Appointments() {
     const appointments = [];
     if(data != undefined){
         const arr = data.allAppointments;
-        
         arr.forEach((appointment, index) => {
             var timestamp = Number(appointment.dateTime);
             var date = new Date(timestamp);
@@ -96,7 +121,14 @@ function Appointments() {
                                 + day + ' '
                                 + hours + ':'
                                 + minutes + ':'
-                                + seconds;  
+                                + seconds;
+
+            let defName = appointment.name;
+            let defAddress = appointment.address;
+            let defEmail = appointment.email;
+            let defPhone = appointment.phone;
+            let defDescription = appointment.description;
+            //console.log(defName, appointment.name);
             appointments.push(
                 <div class="col p-2 m-2 bgWithOpacity" style={{border: '1px solid #000', maxWidth: '33%'}}>
                     <div key={index} style={{margin: 'auto', width: '85%'}}>
@@ -131,45 +163,53 @@ function Appointments() {
                         {(index === setAppt && showDiv) && (
                             <div class="p-1" style={{margin: 'auto', width: '75%'}}>
                             {/* Your content goes here */}
-                                <Form onSubmit={() => handleUpdateAppointment(appointment._id)}>
+                                <Form onSubmit={(event) => handleUpdateAppointment(event, appointment)}>
                                     <Form.Group controlId="name">
                                         <Form.Control
                                             type="text"
                                             placeholder="Name"
-                                            defaultValue={appointment.name}
-                                            onChange={(event) => setName(event.target.value)}
+                                            defaultValue={defName}
+                                            onChange={(event) => setName(event.currentTarget.value)}
                                         />
                                     </Form.Group>
                                     <Form.Group controlId="email">
                                         <Form.Control
                                             type="text"
                                             placeholder="Address"
-                                            defaultValue={appointment.address}
-                                            onChange={(event) => setAddress(event.target.value)}
+                                            defaultValue={defAddress}
+                                            onChange={(event) => setAddress(event.currentTarget.value)}
                                         />
                                     </Form.Group>
                                     <Form.Group controlId="phone">
                                         <Form.Control
                                             type="tel"
                                             placeholder="Phone"
-                                            defaultValue={appointment.phone}
-                                            onChange={(event) => setPhone(event.target.value)}
+                                            defaultValue={defPhone}
+                                            onChange={(event) => setPhone(event.currentTarget.value)}
                                         />
                                     </Form.Group>
                                     <Form.Group controlId="email">
                                         <Form.Control
                                             type="email"
                                             placeholder="Email"
-                                            defaultValue={appointment.email}
-                                            onChange={(event) => setEmail(event.target.value)}
+                                            defaultValue={defEmail}
+                                            onChange={(event) => setEmail(event.currentTarget.value)}
                                         />
                                     </Form.Group>
                                     <Form.Group controlId="description">
                                         <Form.Control
                                             type="text"
                                             placeholder="Description"
-                                            defaultValue={appointment.description}
-                                            onChange={(event) => setDescription(event.target.value)}
+                                            defaultValue={defDescription}
+                                            onChange={(event) => setDescription(event.currentTarget.value)}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="description">
+                                        <Form.Control
+                                            type="date"
+                                            placeholder="Date"
+                                            defaultValue={appointment.dateTime}
+                                            onChange={(event) => setDateTime(event.currentTarget.value)}
                                         />
                                     </Form.Group>
                                     <div class="pt-3">
