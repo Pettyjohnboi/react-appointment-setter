@@ -48,31 +48,9 @@ function Appointments() {
     const [dateTime, setDateTime] = useState("");
 
     const handleUpdateAppointment = async (event, appointment) => {
-        event.preventDefault();
         let appointmentId = appointment._id;
         console.log(appointment);
-            if(name == "") {
-                setName (appointment.name);
-                console.log("entered");
-            }
-            if(address == "") setAddress (appointment.address);
-            if(phone == "") setPhone (appointment.phone);
-            if(email == "") setEmail (appointment.email);
-            if(description == "") setDescription(appointment.description);
-            if(dateTime == "" || dateTime == null) 
-            {
-                var timestamp = Number(appointment.dateTime);
-                var date = new Date(timestamp);
-                var year = date.getFullYear();
-                var month = date.getMonth() + 1; // Months are zero-based, so adding 1
-                var day = date.getDate();
-                var formattedDate = year + '/'
-                                    + month + '/'
-                                    + day + '/';  
-                setDateTime(formattedDate);
-            }
             try {
-                console.log(phone);
                 // Assuming updateAppt is a GraphQL mutation
                 const { data } = await updateAppt({
                     variables: {
@@ -88,18 +66,24 @@ function Appointments() {
                     },
                 });
                 console.log('Mutation response: ', data);
-                //window.location.reload(false);
+                window.location.reload(false);
                 } catch (err) {
                     console.error('Mutation error:', err.message);
                 }
         };
 
-    const handleButtonClick = (index) => {
+    const handleButtonClick = (index, appointment) => {
         setApptIndex(index);
-        if(showDiv == false){
+        if (showDiv === false) {
             setShowDiv(true);
+            setName(appointment.name);
+            setAddress(appointment.address);
+            setPhone(appointment.phone);
+            setEmail(appointment.email);
+            setDescription(appointment.description);
+            setDateTime(appointment.dateTime);
         } else {
-            setShowDiv(false); 
+            setShowDiv(false);
         }
     };
 
@@ -128,19 +112,18 @@ function Appointments() {
             let defEmail = appointment.email;
             let defPhone = appointment.phone;
             let defDescription = appointment.description;
-            //console.log(defName, appointment.name);
             appointments.push(
                 <div class="col p-2 m-2 bgWithOpacity" style={{border: '1px solid #000', maxWidth: '33%'}}>
-                    <div key={index} style={{margin: 'auto', width: '85%'}}>
+                    <div key={index} style={{margin: 'auto', width: '90%'}}>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <h5 style={{ marginRight: 'auto' }}>Name:</h5>
                             <h5 style={{ marginLeft: 'auto' }}>{appointment.name}</h5>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between'}}>
                             <h5 style={{ marginRight: 'auto' }}>Address:</h5>
                             <h5 style={{ marginLeft: 'auto' }}>{appointment.address}</h5>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
                                 <h5 style={{ marginRight: 'auto' }}>Email:</h5>
                                 <h5 style={{ marginLeft: 'auto' }}>{appointment.email}</h5>
                         </div>
@@ -158,7 +141,7 @@ function Appointments() {
                         </div>
                         <div style={{ display: 'center', justifyContent: 'space-evenly' }}>
                             <button onClick={() => handleDeleteAppointment(appointment._id)}>Delete</button>
-                            <button onClick={() => handleButtonClick(index)}>Edit</button>
+                            <button onClick={() => handleButtonClick(index, appointment)}>Edit</button>
                         </div>
                         {(index === setAppt && showDiv) && (
                             <div class="p-1" style={{margin: 'auto', width: '75%'}}>
