@@ -33,6 +33,8 @@ mutation addUser($userInput: UserInput!) {
       email
     }
   }`;
+
+  
   export const ADD_APPOINTMENT = gql `
   mutation addAppointment ($appointmentInput: AppointmentInput!){
     addAppointment(appointmentInput: $appointmentInput) {
